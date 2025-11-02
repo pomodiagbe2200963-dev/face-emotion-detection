@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Emotion Detection</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        form {
+            background: #ffffffd9;
+            padding: 25px 35px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        input[type="file"] {
+            display: block;
+            margin: 15px auto;
+            font-size: 1rem;
+            padding: 6px;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            font-size: 1rem;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .result {
+            margin-top: 25px;
+            background: #ffffffc9;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        img {
+            max-width: 250px;
+            margin-top: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        footer {
+            position: absolute;
+            bottom: 15px;
+            color: #fff;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 480px) {
+            form {
+                width: 90%;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>😊 Face Emotion Detection</h1>
+    
+    <form action="/predict" method="post" enctype="multipart/form-data">
+        <p><strong>Select an image to analyze:</strong></p>
+        <input type="file" name="image" accept="image/*" required>
+        <button type="submit">Detect Emotion</button>
+    </form>
+
+    {% if filename %}
+    <div class="result">
+        <h3>Detected Emotion: <span style="color:#007bff;">{{ emotion }}</span></h3>
+        <img src="{{ url_for('static', filename='uploads/' + filename) }}" alt="Uploaded Image">
+    </div>
+    {% elif emotion %}
+    <div class="result">
+        <p>{{ emotion }}</p>
+    </div>
+    {% endif %}
+
+    <footer>© 2025 Emotion Detection Project</footer>
+
+</body>
+</html>
